@@ -1,1 +1,3 @@
 # coral-website
+
+i want a one page heavily oriented on lead generation. contact info is king of the page, with a ballanced mix of shapes and text in the hero area and sections that are 100vh triggered on scroll. please use smooth scroll library. I want a progressive contact form, that starts simple and only shows useful questions to the user - proper form logic to implement, build structure and define the questions later (prefill with ^placeholder). in addition to this I'd like to see a version of it in ultra modern style and another using the newmorphism styles. use this color scheme, we will refine later the smallest details.
