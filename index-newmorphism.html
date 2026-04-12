@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coral Remodeling - Newmorphism</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/newmorphism-modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/0.9.1/css/twentytwenty.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">Coral Remodeling</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <video class="video-background" autoplay muted loop>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="container">
+            <h1>Transforming Spaces, Improving Lives</h1>
+            <p>Expert kitchen and bathroom remodeling services</p>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p>Coral Remodeling is a premier renovation company dedicated to providing high-quality craftsmanship and exceptional customer service. We specialize in kitchen and bathroom remodeling, and our mission is to create beautiful, functional spaces that our clients will love for years to come.</p>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-kitchen-set"></i>
+                    <h3>Kitchen Renovations</h3>
+                    <p>We design and build beautiful and functional kitchens that are the heart of your home.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bath"></i>
+                    <h3>Bathroom Renovations</h3>
+                    <p>Transform your bathroom into a luxurious and relaxing oasis.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Home Additions</h3>
+                    <p>Expand your living space with a seamless and stylish home addition.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Projects</h2>
+            <div class="twentytwenty-container">
+                <img src="https://picsum.photos/800/400?random=1" />
+                <img src="https://picsum.photos/800/400?random=2" />
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Coral Remodeling. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.event.move/2.0.0/jquery.event.move.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/0.9.1/js/jquery.twentytwenty.js"></script>
+    <script>
+        $(function(){
+            $(".twentytwenty-container").twentytwenty({
+                default_offset_pct: 0.7, 
+                orientation: 'horizontal',
+                no_overlay: true, 
+                move_slider_on_hover: true,
+                move_with_handle_only: true,
+                click_to_move: false
+            });
+        });
+    </script>
+</body>
+</html>
