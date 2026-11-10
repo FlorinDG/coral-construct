@@ -7,13 +7,13 @@
   --hi: color-mix(in oklab, var(--surface) 30%, white);
   --lo: color-mix(in oklab, var(--surface) 78%, var(--ink));
   --text: var(--ink);
-  --radius: 28px;
-  --out: 10px 10px 24px var(--lo), -10px -10px 24px var(--hi);
-  --out-sm: 5px 5px 12px var(--lo), -5px -5px 12px var(--hi);
-  --in: inset 6px 6px 12px var(--lo), inset -6px -6px 12px var(--hi);
-  --in-sm: inset 3px 3px 7px var(--lo), inset -3px -3px 7px var(--hi);
-  --primary-fg: var(--primary-strong);
+  --radius: 16px;
+  --out: 6px 6px 14px var(--lo), -6px -6px 14px var(--hi);
+  --out-sm: 3px 3px 8px var(--lo), -3px -3px 8px var(--hi);
+  --in: inset 4px 4px 8px var(--lo), inset -4px -4px 8px var(--hi);
+  --in-sm: inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi);
   --reveal-from: translateY(30px);
+  --primary-fg: var(--primary-strong);
   background: var(--surface);
   color: var(--text);
 }
@@ -30,15 +30,15 @@ body:has([data-variant="neu"]) {
 }
 [data-variant="neu"] .topnav a {
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   transition: box-shadow 0.25s var(--ease);
 }
 [data-variant="neu"] .topnav a:hover {
   box-shadow: var(--in-sm);
 }
 [data-variant="neu"] .topbar-phone {
-  padding: 10px 18px;
-  border-radius: 999px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--out-sm);
   color: var(--primary-fg);
 }
@@ -91,10 +91,9 @@ body:has([data-variant="neu"]) {
 [data-variant="neu"] .lf-next,
 [data-variant="neu"] .dock-primary {
   box-shadow:
-    6px 6px 14px var(--lo),
-    -6px -6px 14px var(--hi),
-    inset 2px 2px 4px color-mix(in oklab, var(--primary) 60%, white),
-    inset -2px -2px 4px color-mix(in oklab, var(--primary) 70%, black);
+    3px 3px 8px var(--lo),
+    -3px -3px 8px var(--hi),
+    inset 0 1px 0 color-mix(in oklab, var(--primary) 55%, white);
 }
 [data-variant="neu"] .btn-primary:active,
 [data-variant="neu"] .lf-next:active {
@@ -112,8 +111,8 @@ body:has([data-variant="neu"]) {
   border-radius: 50%;
   background: var(--surface);
   box-shadow:
-    30px 30px 60px var(--lo),
-    -30px -30px 60px var(--hi);
+    18px 18px 40px var(--lo),
+    -18px -18px 40px var(--hi);
 }
 [data-variant="neu"] .shape-1::after {
   content: "";
@@ -121,8 +120,8 @@ body:has([data-variant="neu"]) {
   inset: 22%;
   border-radius: 50%;
   box-shadow:
-    inset 16px 16px 32px var(--lo),
-    inset -16px -16px 32px var(--hi);
+    inset 10px 10px 20px var(--lo),
+    inset -10px -10px 20px var(--hi);
 }
 [data-variant="neu"] .shape-2 {
   width: 64px;
@@ -142,7 +141,7 @@ body:has([data-variant="neu"]) {
   height: 64px;
   left: 16vw;
   top: calc(var(--topbar-h) + 20px);
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--out);
 }
@@ -151,7 +150,7 @@ body:has([data-variant="neu"]) {
   aspect-ratio: 1;
   left: 46%;
   top: 12vh;
-  border-radius: 36px;
+  border-radius: 24px;
   box-shadow: var(--in);
   transform: rotate(14deg);
 }
@@ -210,16 +209,16 @@ body:has([data-variant="neu"]) {
 [data-variant="neu"] .service-shape {
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 32px;
-  border-radius: 20px;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 28px;
+  border-radius: 12px;
   box-shadow: var(--in);
 }
 [data-variant="neu"] .service-shape::after {
   content: "";
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   background: var(--primary);
   box-shadow: 3px 3px 6px var(--lo);
 }
@@ -241,16 +240,16 @@ body:has([data-variant="neu"]) {
   color: var(--primary-fg);
 }
 [data-variant="neu"] .quote {
-  padding: 32px 36px;
+  padding: 28px 32px;
   border-radius: var(--radius);
   box-shadow: var(--in);
 }
 [data-variant="neu"] .step-n {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   box-shadow: var(--in-sm);
   margin-bottom: 28px;
 }
@@ -259,7 +258,7 @@ body:has([data-variant="neu"]) {
   height: 42px;
   padding: 11px;
   box-sizing: border-box;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--out-sm);
   color: var(--primary-fg);
 }
@@ -325,12 +324,12 @@ body:has([data-variant="neu"]) {
 }
 [data-variant="neu"] .summary-row {
   padding: 10px 14px;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--in-sm);
 }
 [data-variant="neu"] .topbar-mail {
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--out-sm);
 }
 [data-variant="neu"] .topbar-mail svg {

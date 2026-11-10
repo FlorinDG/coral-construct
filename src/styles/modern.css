@@ -4,10 +4,10 @@
 [data-variant="modern"] {
   --surface: color-mix(in oklab, var(--ink) 85%, var(--deep));
   --text: color-mix(in oklab, var(--paper) 96%, white);
-  --line: color-mix(in oklab, var(--text) 12%, transparent);
+  --line: color-mix(in oklab, var(--text) 14%, transparent);
   --glass: color-mix(in oklab, var(--text) 5%, transparent);
   --glass-hi: color-mix(in oklab, var(--text) 9%, transparent);
-  --radius: 24px;
+  --radius: 16px;
   --reveal-from: translateY(48px) scale(0.98);
   background: var(--surface);
   color: var(--text);
@@ -27,7 +27,7 @@ body:has([data-variant="modern"]) {
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
-  opacity: 0.55;
+  opacity: 0.35;
 }
 
 [data-variant="modern"] .topbar {
@@ -43,24 +43,19 @@ body:has([data-variant="modern"]) {
   opacity: 1;
 }
 [data-variant="modern"] .topbar-phone {
-  padding: 10px 16px;
-  border-radius: 999px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--glass);
 }
 [data-variant="modern"] .btn-primary,
 [data-variant="modern"] .lf-next,
 [data-variant="modern"] .dock-primary {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--primary) 60%, white 10%) inset,
-    0 10px 40px -10px color-mix(in oklab, var(--primary) 80%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklab, white 25%, transparent) inset;
 }
 [data-variant="modern"] .btn-primary:hover,
 [data-variant="modern"] .lf-next:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--primary) 60%, white 10%) inset,
-    0 18px 50px -10px var(--primary);
+  background: color-mix(in oklab, var(--primary) 88%, white);
 }
 [data-variant="modern"] .btn-ghost {
   border: 1px solid var(--line);
@@ -74,7 +69,7 @@ body:has([data-variant="modern"]) {
 [data-variant="modern"] .card {
   background: linear-gradient(160deg, var(--glass-hi), var(--glass));
   border: 1px solid var(--line);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
   transition:
     transform 0.4s var(--ease),
     border-color 0.4s var(--ease);
@@ -87,10 +82,7 @@ body:has([data-variant="modern"]) {
 
 /* ── Hero shapes: glowing orbs, ring, grid tile ─────────────── */
 [data-variant="modern"] .hero-title span:last-child {
-  background: linear-gradient(100deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--primary);
 }
 [data-variant="modern"] .shape-1 {
   width: 46vmax;
@@ -99,8 +91,8 @@ body:has([data-variant="modern"]) {
   top: -14vmax;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, var(--primary), transparent 65%);
-  filter: blur(40px);
-  opacity: 0.55;
+  filter: blur(50px);
+  opacity: 0.3;
   animation: m-float 16s ease-in-out infinite alternate;
 }
 [data-variant="modern"] .shape-2 {
@@ -110,8 +102,8 @@ body:has([data-variant="modern"]) {
   bottom: -12vmax;
   border-radius: 50%;
   background: radial-gradient(circle, var(--secondary), transparent 65%);
-  filter: blur(30px);
-  opacity: 0.9;
+  filter: blur(40px);
+  opacity: 0.45;
   animation: m-float 20s ease-in-out infinite alternate-reverse;
 }
 [data-variant="modern"] .shape-3 {
@@ -120,7 +112,7 @@ body:has([data-variant="modern"]) {
   right: 6vw;
   bottom: 8vh;
   border-radius: 50%;
-  border: 1px solid color-mix(in oklab, var(--accent) 60%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
   animation: m-spin 40s linear infinite;
 }
 [data-variant="modern"] .shape-3::after {
@@ -132,15 +124,15 @@ body:has([data-variant="modern"]) {
   height: 12px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 20px var(--accent);
+  box-shadow: none;
 }
 [data-variant="modern"] .shape-4 {
   width: 180px;
   height: 180px;
   left: 44%;
   top: 14vh;
-  border-radius: 32px;
-  background: linear-gradient(135deg, color-mix(in oklab, var(--sage) 30%, transparent), transparent);
+  border-radius: 20px;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--sage) 22%, transparent), transparent);
   border: 1px solid color-mix(in oklab, var(--sage) 35%, transparent);
   transform: rotate(18deg);
   backdrop-filter: blur(6px);
@@ -152,17 +144,17 @@ body:has([data-variant="modern"]) {
   top: calc(14vh + 120px);
   background: var(--accent);
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  opacity: 0.85;
+  opacity: 0.8;
   animation: m-float 12s ease-in-out infinite alternate;
-}
-@keyframes m-float {
-  to {
-    transform: translate(3vmax, 4vmax) scale(1.08);
-  }
 }
 @keyframes m-spin {
   to {
     transform: rotate(360deg);
+  }
+}
+@keyframes m-float {
+  to {
+    transform: translate(3vmax, 4vmax) scale(1.08);
   }
 }
 
@@ -183,7 +175,7 @@ body:has([data-variant="modern"]) {
   color: inherit;
 }
 [data-variant="modern"] .quick-option:hover {
-  background: color-mix(in oklab, var(--primary) 18%, transparent);
+  background: color-mix(in oklab, var(--primary) 12%, transparent);
   border-color: var(--primary);
   transform: translateX(4px);
 }
@@ -191,16 +183,16 @@ body:has([data-variant="modern"]) {
 /* ── Sections ───────────────────────────────────────────────── */
 [data-variant="modern"] .service-shape {
   display: block;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 40px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  width: 36px;
+  height: 36px;
+  margin-bottom: 32px;
+  background: var(--primary);
 }
 [data-variant="modern"] .service-shape-1 {
   border-radius: 50%;
 }
 [data-variant="modern"] .service-shape-2 {
-  border-radius: 12px;
+  border-radius: 8px;
 }
 [data-variant="modern"] .service-shape-3 {
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
@@ -209,21 +201,18 @@ body:has([data-variant="modern"]) {
   border-radius: 50% 50% 50% 8px;
 }
 [data-variant="modern"] .stat strong {
-  background: linear-gradient(180deg, var(--text), color-mix(in oklab, var(--text) 40%, transparent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text);
 }
 [data-variant="modern"] .quote {
   padding-left: 28px;
   border-left: 3px solid var(--primary);
 }
 [data-variant="modern"] .step-n {
-  font-size: 3.4rem;
-  letter-spacing: -0.05em;
-  margin-bottom: 20px;
-  -webkit-text-stroke: 1px var(--primary);
-  color: transparent;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
 }
 [data-variant="modern"] .contact::before {
   content: "";
@@ -233,7 +222,7 @@ body:has([data-variant="modern"]) {
   width: 40vmax;
   height: 40vmax;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in oklab, var(--primary) 45%, transparent), transparent 65%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--primary) 22%, transparent), transparent 65%);
   filter: blur(40px);
   pointer-events: none;
 }
@@ -250,8 +239,7 @@ body:has([data-variant="modern"]) {
   background: var(--line);
 }
 [data-variant="modern"] .lf-progress span {
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  box-shadow: 0 0 16px var(--primary);
+  background: var(--primary);
 }
 [data-variant="modern"] .lf-option,
 [data-variant="modern"] .lf-input {
@@ -265,7 +253,7 @@ body:has([data-variant="modern"]) {
 [data-variant="modern"] .lf-input:focus {
   border-color: var(--primary);
   outline: none;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 25%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
 }
 [data-variant="modern"] .lf-option:hover {
   border-color: color-mix(in oklab, var(--primary) 60%, transparent);
@@ -273,7 +261,6 @@ body:has([data-variant="modern"]) {
 [data-variant="modern"] .lf-option[aria-pressed="true"] {
   background: color-mix(in oklab, var(--primary) 22%, transparent);
   border-color: var(--primary);
-  box-shadow: 0 0 24px -6px var(--primary);
 }
 [data-variant="modern"] .lf-input[aria-invalid="true"] {
   border-color: var(--danger);
