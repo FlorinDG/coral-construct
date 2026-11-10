@@ -1,3 +1,47 @@
-# coral-website
+# coral-website — Coral Construct
 
-i want a one page heavily oriented on lead generation. contact info is king of the page, with a ballanced mix of shapes and text in the hero area and sections that are 100vh triggered on scroll. please use smooth scroll library. I want a progressive contact form, that starts simple and only shows useful questions to the user - proper form logic to implement, build structure and define the questions later (prefill with ^placeholder). in addition to this I'd like to see a version of it in ultra modern style and another using the newmorphism styles. use this color scheme, we will refine later the smallest details.
+One-page lead-generation site. Contact is king: phone in the top bar, in the
+hero, in every section CTA, in the contact card, and in a mobile dock.
+
+## Brief
+
+> One page heavily oriented on lead generation. Contact info is king of the page,
+> with a balanced mix of shapes and text in the hero area and sections that are
+> 100vh, triggered on scroll. Smooth scroll library. A progressive contact form
+> that starts simple and only shows useful questions — proper form logic, build
+> the structure and define the questions later (prefill with ^placeholder).
+> A version in ultra-modern style and another using neumorphism. Colour scheme to
+> be refined later.
+
+## Routes
+
+| Route | What |
+|---|---|
+| `/modern` | Ultra-modern variant |
+| `/neumorphism` | Neumorphism variant |
+| `/` | Temporary chooser between the two |
+| `POST /api/lead` | Receives a finished lead |
+
+## Where things live
+
+- `src/styles/palette.css` — **the only place colours are defined** (temporary values).
+- `src/content/site.ts` — all page copy and contact details.
+- `src/lib/form/flow.ts` — the form: steps, questions, options and branching (`when`).
+- `src/lib/form/engine.ts` — visibility, validation, pruning; shared by browser and API.
+- `src/components/OnePager.tsx` — the shared page structure.
+- `src/styles/modern.css`, `src/styles/neu.css` — the two looks, scoped by `data-variant`.
+
+Every `^...` string is placeholder copy: `grep -rn '\^' src` lists what is left to write.
+
+## Still open
+
+- Palette (swap in `palette.css`).
+- Copy, questions and contact details (`^` placeholders).
+- Lead destination: `/api/lead` validates and logs only (`^DESTINATION` in `src/app/api/lead/route.ts`).
+
+## Develop
+
+```bash
+npm install
+npm run dev
+```

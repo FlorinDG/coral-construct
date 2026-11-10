@@ -1,0 +1,338 @@
+/* ─────────────────────────────────────────────────────────────────
+   Variant: NEUMORPHISM — one soft surface, everything extruded from
+   it or pressed into it. Light from the top-left.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="neu"] {
+  --surface: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+  --hi: color-mix(in oklab, var(--surface) 30%, white);
+  --lo: color-mix(in oklab, var(--surface) 78%, var(--ink));
+  --text: var(--ink);
+  --radius: 28px;
+  --out: 10px 10px 24px var(--lo), -10px -10px 24px var(--hi);
+  --out-sm: 5px 5px 12px var(--lo), -5px -5px 12px var(--hi);
+  --in: inset 6px 6px 12px var(--lo), inset -6px -6px 12px var(--hi);
+  --in-sm: inset 3px 3px 7px var(--lo), inset -3px -3px 7px var(--hi);
+  --primary-fg: var(--primary-strong);
+  --reveal-from: translateY(30px);
+  background: var(--surface);
+  color: var(--text);
+}
+body:has([data-variant="neu"]) {
+  background: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+}
+
+[data-variant="neu"] .topbar {
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+  backdrop-filter: blur(14px);
+}
+[data-variant="neu"] .brand-mark {
+  box-shadow: var(--out-sm);
+}
+[data-variant="neu"] .topnav a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: box-shadow 0.25s var(--ease);
+}
+[data-variant="neu"] .topnav a:hover {
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .topbar-phone {
+  padding: 10px 18px;
+  border-radius: 999px;
+  box-shadow: var(--out-sm);
+  color: var(--primary-fg);
+}
+
+/* raised surfaces */
+[data-variant="neu"] .card,
+[data-variant="neu"] .btn-ghost,
+[data-variant="neu"] .quick-option,
+[data-variant="neu"] .lf-option,
+[data-variant="neu"] .dock {
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .btn-ghost,
+[data-variant="neu"] .quick-option,
+[data-variant="neu"] .lf-option {
+  box-shadow: var(--out-sm);
+  color: inherit;
+}
+/* pressed */
+[data-variant="neu"] .btn-ghost:active,
+[data-variant="neu"] .quick-option:active,
+[data-variant="neu"] .lf-option[aria-pressed="true"],
+[data-variant="neu"] .topnav a:active {
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .lf-option[aria-pressed="true"] {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .lf-option[aria-pressed="true"] .lf-option-label::before {
+  content: "● ";
+  font-size: 0.75em;
+  vertical-align: 0.1em;
+}
+[data-variant="neu"] .quick-option:hover,
+[data-variant="neu"] .lf-option:hover {
+  transform: translateY(-2px);
+}
+[data-variant="neu"] .service:hover,
+[data-variant="neu"] .step:hover {
+  transform: translateY(-4px);
+}
+[data-variant="neu"] .service,
+[data-variant="neu"] .step {
+  transition: transform 0.4s var(--ease);
+}
+
+/* primary keeps its colour but is shaped like the rest */
+[data-variant="neu"] .btn-primary,
+[data-variant="neu"] .lf-next,
+[data-variant="neu"] .dock-primary {
+  box-shadow:
+    6px 6px 14px var(--lo),
+    -6px -6px 14px var(--hi),
+    inset 2px 2px 4px color-mix(in oklab, var(--primary) 60%, white),
+    inset -2px -2px 4px color-mix(in oklab, var(--primary) 70%, black);
+}
+[data-variant="neu"] .btn-primary:active,
+[data-variant="neu"] .lf-next:active {
+  box-shadow:
+    inset 4px 4px 8px color-mix(in oklab, var(--primary) 60%, black),
+    inset -4px -4px 8px color-mix(in oklab, var(--primary) 60%, white);
+}
+
+/* ── Hero shapes: extruded discs, a well, a pill ─────────────── */
+[data-variant="neu"] .shape-1 {
+  width: min(40vw, 520px);
+  aspect-ratio: 1;
+  right: -6vw;
+  top: 8vh;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow:
+    30px 30px 60px var(--lo),
+    -30px -30px 60px var(--hi);
+}
+[data-variant="neu"] .shape-1::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  box-shadow:
+    inset 16px 16px 32px var(--lo),
+    inset -16px -16px 32px var(--hi);
+}
+[data-variant="neu"] .shape-2 {
+  width: 64px;
+  aspect-ratio: 1;
+  right: calc(-6vw + min(20vw, 260px) - 32px);
+  top: calc(8vh + min(20vw, 260px) - 32px);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow:
+    8px 8px 18px var(--lo),
+    inset -4px -4px 10px color-mix(in oklab, var(--primary) 70%, black),
+    inset 4px 4px 10px color-mix(in oklab, var(--primary) 50%, white);
+  animation: n-bob 6s ease-in-out infinite alternate;
+}
+[data-variant="neu"] .shape-3 {
+  width: 220px;
+  height: 64px;
+  left: 16vw;
+  top: calc(var(--topbar-h) + 20px);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .shape-4 {
+  width: 140px;
+  aspect-ratio: 1;
+  left: 46%;
+  top: 12vh;
+  border-radius: 36px;
+  box-shadow: var(--in);
+  transform: rotate(14deg);
+}
+[data-variant="neu"] .shape-5 {
+  width: 26px;
+  aspect-ratio: 1;
+  left: calc(16vw + 20px);
+  top: calc(var(--topbar-h) + 39px);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 3px 3px 6px var(--lo);
+  animation: n-slide 7s ease-in-out infinite alternate;
+}
+@keyframes n-bob {
+  to {
+    transform: translateY(-14px);
+  }
+}
+@keyframes n-slide {
+  to {
+    transform: translateX(154px);
+  }
+}
+@media (max-width: 900px) {
+  [data-variant="neu"] .shape-1 {
+    width: 70vw;
+    right: -30vw;
+    top: 4vh;
+    opacity: 0.7;
+  }
+  [data-variant="neu"] .shape-2,
+  [data-variant="neu"] .shape-3,
+  [data-variant="neu"] .shape-4,
+  [data-variant="neu"] .shape-5 {
+    display: none;
+  }
+}
+
+[data-variant="neu"] .hero-phone {
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .hero-phone svg {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--out-sm);
+}
+[data-variant="neu"] .hero-mail {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .hero-card {
+  padding: 28px;
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+[data-variant="neu"] .service-shape {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 32px;
+  border-radius: 20px;
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .service-shape::after {
+  content: "";
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  box-shadow: 3px 3px 6px var(--lo);
+}
+[data-variant="neu"] .service-shape-1::after {
+  border-radius: 50%;
+}
+[data-variant="neu"] .service-shape-2::after {
+  border-radius: 6px;
+}
+[data-variant="neu"] .service-shape-3::after {
+  background: var(--secondary);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+[data-variant="neu"] .service-shape-4::after {
+  border-radius: 50% 50% 50% 4px;
+  background: var(--accent);
+}
+[data-variant="neu"] .stat strong {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .quote {
+  padding: 32px 36px;
+  border-radius: var(--radius);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .step-n {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: var(--in-sm);
+  margin-bottom: 28px;
+}
+[data-variant="neu"] .contact-line svg {
+  width: 42px;
+  height: 42px;
+  padding: 11px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  box-shadow: var(--out-sm);
+  color: var(--primary-fg);
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+[data-variant="neu"] .form-card {
+  padding: clamp(24px, 3vw, 40px);
+}
+[data-variant="neu"] .lf-progress {
+  height: 12px;
+  padding: 3px;
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .lf-input {
+  border: 0;
+  background: var(--surface);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .lf-input::placeholder {
+  color: color-mix(in oklab, var(--ink) 40%, transparent);
+}
+[data-variant="neu"] .lf-input:focus {
+  outline: none;
+  box-shadow:
+    var(--in),
+    0 0 0 2px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+[data-variant="neu"] .lf-input[aria-invalid="true"] {
+  box-shadow:
+    var(--in),
+    0 0 0 2px var(--danger);
+}
+[data-variant="neu"] .lf-consent input {
+  appearance: none;
+  border-radius: 6px;
+  box-shadow: var(--in-sm);
+  display: grid;
+  place-items: center;
+}
+[data-variant="neu"] .lf-consent input:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--primary);
+}
+[data-variant="neu"] .lf-done-mark {
+  box-shadow: var(--out);
+}
+
+/* ── Hero stats, summary, top-bar contact ──────────────────── */
+[data-variant="neu"] .hero-stats {
+  margin-top: 8px;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .hero-stats strong {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .summary-list {
+  gap: 8px;
+}
+[data-variant="neu"] .summary-row {
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .topbar-mail {
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: var(--out-sm);
+}
+[data-variant="neu"] .topbar-mail svg {
+  color: var(--primary-fg);
+}

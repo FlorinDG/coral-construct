@@ -1,0 +1,314 @@
+/* ─────────────────────────────────────────────────────────────────
+   Variant: ULTRA MODERN — dark canvas, glowing orbs, glass, big type.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="modern"] {
+  --surface: color-mix(in oklab, var(--ink) 85%, var(--deep));
+  --text: color-mix(in oklab, var(--paper) 96%, white);
+  --line: color-mix(in oklab, var(--text) 12%, transparent);
+  --glass: color-mix(in oklab, var(--text) 5%, transparent);
+  --glass-hi: color-mix(in oklab, var(--text) 9%, transparent);
+  --radius: 24px;
+  --reveal-from: translateY(48px) scale(0.98);
+  background: var(--surface);
+  color: var(--text);
+}
+body:has([data-variant="modern"]) {
+  background: color-mix(in oklab, var(--ink) 85%, var(--deep));
+}
+
+/* fine grid behind everything, fading out to the bottom */
+[data-variant="modern"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+  opacity: 0.55;
+}
+
+[data-variant="modern"] .topbar {
+  background: color-mix(in oklab, var(--surface) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
+}
+[data-variant="modern"] .topnav a {
+  opacity: 0.72;
+  transition: opacity 0.2s;
+}
+[data-variant="modern"] .topnav a:hover {
+  opacity: 1;
+}
+[data-variant="modern"] .topbar-phone {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+}
+[data-variant="modern"] .btn-primary,
+[data-variant="modern"] .lf-next,
+[data-variant="modern"] .dock-primary {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 60%, white 10%) inset,
+    0 10px 40px -10px color-mix(in oklab, var(--primary) 80%, transparent);
+}
+[data-variant="modern"] .btn-primary:hover,
+[data-variant="modern"] .lf-next:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 60%, white 10%) inset,
+    0 18px 50px -10px var(--primary);
+}
+[data-variant="modern"] .btn-ghost {
+  border: 1px solid var(--line);
+  background: var(--glass);
+}
+[data-variant="modern"] .btn-ghost:hover {
+  background: var(--glass-hi);
+}
+
+/* glass cards */
+[data-variant="modern"] .card {
+  background: linear-gradient(160deg, var(--glass-hi), var(--glass));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+  transition:
+    transform 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+[data-variant="modern"] .service:hover,
+[data-variant="modern"] .step:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+/* ── Hero shapes: glowing orbs, ring, grid tile ─────────────── */
+[data-variant="modern"] .hero-title span:last-child {
+  background: linear-gradient(100deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-variant="modern"] .shape-1 {
+  width: 46vmax;
+  height: 46vmax;
+  right: -12vmax;
+  top: -14vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--primary), transparent 65%);
+  filter: blur(40px);
+  opacity: 0.55;
+  animation: m-float 16s ease-in-out infinite alternate;
+}
+[data-variant="modern"] .shape-2 {
+  width: 30vmax;
+  height: 30vmax;
+  left: -10vmax;
+  bottom: -12vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--secondary), transparent 65%);
+  filter: blur(30px);
+  opacity: 0.9;
+  animation: m-float 20s ease-in-out infinite alternate-reverse;
+}
+[data-variant="modern"] .shape-3 {
+  width: 340px;
+  height: 340px;
+  right: 6vw;
+  bottom: 8vh;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent) 60%, transparent);
+  animation: m-spin 40s linear infinite;
+}
+[data-variant="modern"] .shape-3::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent);
+}
+[data-variant="modern"] .shape-4 {
+  width: 180px;
+  height: 180px;
+  left: 44%;
+  top: 14vh;
+  border-radius: 32px;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--sage) 30%, transparent), transparent);
+  border: 1px solid color-mix(in oklab, var(--sage) 35%, transparent);
+  transform: rotate(18deg);
+  backdrop-filter: blur(6px);
+}
+[data-variant="modern"] .shape-5 {
+  width: 90px;
+  height: 90px;
+  left: calc(44% + 130px);
+  top: calc(14vh + 120px);
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  opacity: 0.85;
+  animation: m-float 12s ease-in-out infinite alternate;
+}
+@keyframes m-float {
+  to {
+    transform: translate(3vmax, 4vmax) scale(1.08);
+  }
+}
+@keyframes m-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-variant="modern"] .hero-phone {
+  background: var(--text);
+  color: var(--ink);
+}
+[data-variant="modern"] .hero-phone svg {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+[data-variant="modern"] .hero-card {
+  padding: 28px;
+}
+[data-variant="modern"] .quick-option {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  color: inherit;
+}
+[data-variant="modern"] .quick-option:hover {
+  background: color-mix(in oklab, var(--primary) 18%, transparent);
+  border-color: var(--primary);
+  transform: translateX(4px);
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+[data-variant="modern"] .service-shape {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+[data-variant="modern"] .service-shape-1 {
+  border-radius: 50%;
+}
+[data-variant="modern"] .service-shape-2 {
+  border-radius: 12px;
+}
+[data-variant="modern"] .service-shape-3 {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+[data-variant="modern"] .service-shape-4 {
+  border-radius: 50% 50% 50% 8px;
+}
+[data-variant="modern"] .stat strong {
+  background: linear-gradient(180deg, var(--text), color-mix(in oklab, var(--text) 40%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-variant="modern"] .quote {
+  padding-left: 28px;
+  border-left: 3px solid var(--primary);
+}
+[data-variant="modern"] .step-n {
+  font-size: 3.4rem;
+  letter-spacing: -0.05em;
+  margin-bottom: 20px;
+  -webkit-text-stroke: 1px var(--primary);
+  color: transparent;
+}
+[data-variant="modern"] .contact::before {
+  content: "";
+  position: absolute;
+  right: -10vmax;
+  top: 10%;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--primary) 45%, transparent), transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+[data-variant="modern"] .contact-line svg {
+  color: var(--primary);
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+[data-variant="modern"] .form-card {
+  padding: clamp(24px, 3vw, 40px);
+}
+[data-variant="modern"] .lf-progress {
+  background: var(--line);
+}
+[data-variant="modern"] .lf-progress span {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  box-shadow: 0 0 16px var(--primary);
+}
+[data-variant="modern"] .lf-option,
+[data-variant="modern"] .lf-input {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  color: inherit;
+}
+[data-variant="modern"] .lf-input::placeholder {
+  color: color-mix(in oklab, var(--text) 40%, transparent);
+}
+[data-variant="modern"] .lf-input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 25%, transparent);
+}
+[data-variant="modern"] .lf-option:hover {
+  border-color: color-mix(in oklab, var(--primary) 60%, transparent);
+}
+[data-variant="modern"] .lf-option[aria-pressed="true"] {
+  background: color-mix(in oklab, var(--primary) 22%, transparent);
+  border-color: var(--primary);
+  box-shadow: 0 0 24px -6px var(--primary);
+}
+[data-variant="modern"] .lf-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+[data-variant="modern"] .lf-error {
+  color: color-mix(in oklab, var(--danger) 60%, white);
+}
+
+/* ── Dock ───────────────────────────────────────────────────── */
+[data-variant="modern"] .dock {
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+}
+
+/* ── Hero stats, summary, top-bar contact ──────────────────── */
+[data-variant="modern"] .hero-stats {
+  border-top: 1px solid var(--line);
+}
+[data-variant="modern"] .hero-stats li + li {
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+}
+[data-variant="modern"] .hero-stats strong {
+  color: var(--primary);
+}
+[data-variant="modern"] .summary-row + .summary-row {
+  border-top: 1px solid var(--line);
+}
+[data-variant="modern"] .topbar-mail svg {
+  color: var(--primary);
+}
+@media (max-width: 560px) {
+  [data-variant="modern"] .hero-stats li:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

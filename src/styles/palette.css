@@ -1,0 +1,20 @@
+/* ─────────────────────────────────────────────────────────────────
+   PALETTE — the only place colours are defined.
+   Coral Construct palette (10/11/2026). Main colour: #339989.
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --primary: #339989; /* main colour — CTAs, highlights */
+  --on-primary: #001804; /* text on primary (5.3:1; white is only 3.5:1) */
+  --secondary: #734978; /* plum — shapes, second accent */
+  --accent: #9a8a3a; /* olive — shapes, highlights on dark */
+  --deep: #344b46; /* dark green-grey — dark surfaces */
+  --sage: #97b1ab; /* soft green — muted shapes */
+  --ink: #001804; /* text, darkest surface */
+  --paper: #f3eada; /* light surface */
+
+  /* Derived: primary used as text on light surfaces (≥4.5:1 on cream and neu). */
+  --primary-strong: color-mix(in srgb, var(--primary) 60%, var(--ink));
+
+  --success: var(--primary);
+  --danger: #a8352a;
+}
