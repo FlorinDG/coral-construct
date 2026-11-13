@@ -83,17 +83,6 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
             <span className="shape shape-3" />
             <span className="shape shape-4" />
             <span className="shape shape-5" />
-            <div className="swatches">
-              {SWATCHES.map((sw, i) => (
-                <span key={sw.hex} className="swatch" style={{ "--i": i, "--c": sw.hex } as React.CSSProperties}>
-                  <small>
-                    {sw.name}
-                    <br />
-                    {sw.hex.slice(1)}
-                  </small>
-                </span>
-              ))}
-            </div>
           </div>
 
           <div className="hero-copy">
@@ -150,14 +139,28 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
             </div>
           </div>
 
-          <ul className="hero-stats" aria-label="^Key figures">
-            {PROOF.stats.map((st, i) => (
-              <li key={i} data-r style={d(6 + i)}>
-                <strong>{st.value}</strong>
-                <span>{st.label}</span>
-              </li>
-            ))}
-          </ul>
+          {/* The colour fan stands on the figures strip, so it follows the layout at every size. */}
+          <div className="hero-foot">
+            <div className="swatches" aria-hidden>
+              {SWATCHES.map((sw, i) => (
+                <span key={sw.hex} className="swatch" style={{ "--i": i, "--c": sw.hex } as React.CSSProperties}>
+                  <small>
+                    {sw.name}
+                    <br />
+                    {sw.hex.slice(1)}
+                  </small>
+                </span>
+              ))}
+            </div>
+            <ul className="hero-stats" aria-label="^Key figures">
+              {PROOF.stats.map((st, i) => (
+                <li key={i} data-r style={d(6 + i)}>
+                  <strong>{st.value}</strong>
+                  <span>{st.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* ── Services ─────────────────────────────────────────── */}

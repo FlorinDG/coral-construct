@@ -125,18 +125,14 @@ body:has([data-variant="modern"]) {
 /* ── Colour fan: the palette as paint chips ─────────────────── */
 [data-variant="modern"] .swatches {
   display: block;
-  position: absolute;
-  /* rivet sits on the figures strip, in the free space of its 2nd column */
+  /* rivet sits on the figures strip's top line */
   left: 49%;
-  bottom: 16.5vh;
-  width: 0;
-  height: 0;
-  /* drawn at chip size, scaled from the rivet */
-  scale: 1.6;
+  bottom: calc(100% - 26px);
+  --u: 1.6px;
 }
 @media (max-width: 1280px) {
   [data-variant="modern"] .swatches {
-    scale: 1.3;
+    --u: 1.3px;
   }
 }
 [data-variant="modern"] .swatch {

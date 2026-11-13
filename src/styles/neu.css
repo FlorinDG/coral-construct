@@ -457,32 +457,33 @@ body:has([data-variant="neu"]) {
   --chip-band: var(--surface);
 }
 [data-variant="neu"] .swatches {
-  /* rivet just above the figures well, between the copy and the quote card */
-  left: 49%;
-  bottom: 25vh;
-  scale: 1.35;
+  /* centred in the gap between the copy and the quote card; the foot (33 chip px
+     below the rivet, swing included) stays 24px above the figures well */
+  /* on narrower screens the copy reaches further right than the card's edge moves:
+     shift right by 12% of the width lost below 1440px */
+  left: calc(50% + (1440px - 100vw) * 0.12);
+  bottom: calc(100% + 24px + 33 * var(--u));
+  /* chip size from the free space: width between the email link and the card
+     (≈ 0.344vw − 245px, for a fan 244 chip px wide), height under the headline
+     (≈ 100vh − 591px, for a fan 240 chip px tall) */
+  --u: clamp(0.7px, min((34.4vw - 245px) / 244, (100vh - 591px) / 240), 1.35px);
 }
-[data-variant="neu"] .swatch {
-  box-shadow:
-    -3px 4px 10px var(--lo),
-    inset 1px 1px 0 color-mix(in oklab, white 35%, transparent);
+/* crisp printed chips: a hairline edge, no soft shadow */
+[data-variant="neu"] .swatch,
+[data-variant="neu"] .chip {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--ink) 22%, transparent);
 }
 [data-variant="neu"] .swatch::after {
   background: var(--surface);
-  box-shadow: inset 2px 2px 4px var(--lo), inset -1px -1px 3px var(--hi);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--ink) 35%, transparent);
 }
-[data-variant="neu"] .chip {
-  box-shadow:
-    5px 6px 14px var(--lo),
-    -4px -4px 10px var(--hi);
-}
-@media (max-width: 1280px) {
+/* below ~1180px wide there is no room between the copy and the card */
+@media (max-width: 1180px) {
   [data-variant="neu"] .swatches {
-    scale: 1.15;
+    display: none;
   }
 }
 @media (max-width: 900px) {
-  [data-variant="neu"] .swatches,
   [data-variant="neu"] .chip {
     display: none;
   }
