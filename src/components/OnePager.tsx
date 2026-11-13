@@ -162,7 +162,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
         {/* ── Services ─────────────────────────────────────────── */}
         <section id="services" className="sec services" data-section>
-          <SectionHead eyebrow={SERVICES.eyebrow} title={SERVICES.title} />
+          <SectionHead eyebrow={SERVICES.eyebrow} title={SERVICES.title} chip={2} />
           <div className="svc-wrap" data-r style={d(2)}>
             <Services items={SERVICES.items} />
           </div>
@@ -171,7 +171,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
         {/* ── Proof ────────────────────────────────────────────── */}
         <section id="proof" className="sec proof" data-section>
-          <SectionHead eyebrow={PROOF.eyebrow} title={PROOF.title} />
+          <SectionHead eyebrow={PROOF.eyebrow} title={PROOF.title} chip={4} />
           <div className="proof-grid">
             <div className="card proof-ba" data-r style={d(2)}>
               <BeforeAfter {...PROOF.beforeAfter} />
@@ -195,7 +195,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
         {/* ── Process ──────────────────────────────────────────── */}
         <section id="process" className="sec process" data-section>
-          <SectionHead eyebrow={PROCESS.eyebrow} title={PROCESS.title} />
+          <SectionHead eyebrow={PROCESS.eyebrow} title={PROCESS.title} chip={5} />
           <ol className="steps">
             {PROCESS.steps.map((s, i) => (
               <li key={i} className="card step" data-r style={d(2 + i)}>
@@ -210,7 +210,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
         {/* ── Contact ──────────────────────────────────────────── */}
         <section id="contact" className="sec contact" data-section>
-          <SectionHead eyebrow={CONTACT_SECTION.eyebrow} title={CONTACT_SECTION.title} lead={CONTACT_SECTION.lead} />
+          <SectionHead eyebrow={CONTACT_SECTION.eyebrow} title={CONTACT_SECTION.title} lead={CONTACT_SECTION.lead} chip={1} />
           <aside className="card contact-card" data-r style={d(2)} aria-label="^Contact details">
           <a className="contact-line contact-phone" href={CONTACT.phoneHref}>
             <PhoneIcon />
@@ -281,21 +281,35 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
   );
 }
 
-function SectionHead({ eyebrow, title, lead }: { eyebrow: string; title: string; lead?: string }) {
+/** Section heading; `chip` pins one palette colour (index into SWATCHES) as a paint chip in the corner. */
+function SectionHead({ eyebrow, title, lead, chip }: { eyebrow: string; title: string; lead?: string; chip?: number }) {
+  const sw = chip === undefined ? null : SWATCHES[chip];
+  const tilt = (chip ?? 0) % 2 ? "-7deg" : "6deg";
   return (
-    <header className="sec-head">
-      <p className="eyebrow" data-r style={d(0)}>
-        {eyebrow}
-      </p>
-      <h2 data-r style={d(1)}>
-        {title}
-      </h2>
-      {lead && (
-        <p className="sec-lead" data-r style={d(1)}>
-          {lead}
-        </p>
+    <>
+      {sw && (
+        <span className="chip" aria-hidden data-r style={{ "--c": sw.hex, "--tilt": tilt, "--d": 2 } as React.CSSProperties}>
+          <small>
+            {sw.name}
+            <br />
+            {sw.hex.slice(1)}
+          </small>
+        </span>
       )}
-    </header>
+      <header className="sec-head">
+        <p className="eyebrow" data-r style={d(0)}>
+          {eyebrow}
+        </p>
+        <h2 data-r style={d(1)}>
+          {title}
+        </h2>
+        {lead && (
+          <p className="sec-lead" data-r style={d(1)}>
+            {lead}
+          </p>
+        )}
+      </header>
+    </>
   );
 }
 

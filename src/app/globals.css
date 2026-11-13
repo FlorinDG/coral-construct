@@ -662,8 +662,79 @@ body {
 
 /* painter details: drawn only by variants that opt in */
 .swatches,
-.brush {
+.brush,
+.chip {
   display: none;
+}
+
+/* ── Paint chips: the palette as a fan (hero) and as single cards ── */
+/* A variant shows them and places .swatches (width 0: its origin is the rivet). */
+.swatches {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.swatch,
+.chip {
+  position: absolute;
+  border-radius: 8px;
+  background:
+    linear-gradient(to top, var(--chip-band, var(--paper)) 0 40px, transparent 40px),
+    linear-gradient(to bottom, var(--chip-band, var(--paper)) 0 30px, transparent 30px),
+    var(--c);
+}
+.swatch {
+  --a: calc((var(--i) - 2.5) * 8deg);
+  left: -30px;
+  bottom: -24px;
+  width: 60px;
+  height: 230px;
+  transform-origin: 30px 206px;
+  rotate: var(--a);
+  animation: swatch-sway 9s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.6s);
+}
+@keyframes swatch-sway {
+  to {
+    rotate: calc(var(--a) * 1.18);
+  }
+}
+.swatch small,
+.chip small {
+  position: absolute;
+  left: 6px;
+  right: 4px;
+  top: 5px;
+  font-size: 8.5px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.swatch::after {
+  /* the rivet the fan turns on */
+  content: "";
+  position: absolute;
+  left: 24px;
+  bottom: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--ink) 25%, var(--paper));
+  box-shadow: inset 0 1px 2px #0005;
+}
+/* a single chip, pinned to a section's top-right corner */
+.chip {
+  top: calc(var(--topbar-h) + 36px);
+  right: var(--gutter);
+  width: 56px;
+  height: 132px;
+  rotate: var(--tilt, 6deg);
+}
+/* the fan's left chips reach towards the lead: keep it narrower when a fan is shown */
+.hero:has(.swatches) .hero-lead {
+  max-width: 36ch;
 }
 .quote {
   margin: 0;
