@@ -1,0 +1,451 @@
+/* ─────────────────────────────────────────────────────────────────
+   Variant: NEUMORPHISM — one soft surface, everything extruded from
+   it or pressed into it. Light from the top-left.
+   ───────────────────────────────────────────────────────────────── */
+[data-variant="neu"] {
+  --surface: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+  --hi: color-mix(in oklab, var(--surface) 30%, white);
+  --lo: color-mix(in oklab, var(--surface) 78%, var(--ink));
+  --text: var(--ink);
+  --radius: 16px;
+  --out: 6px 6px 14px var(--lo), -6px -6px 14px var(--hi);
+  --out-sm: 3px 3px 8px var(--lo), -3px -3px 8px var(--hi);
+  --in: inset 4px 4px 8px var(--lo), inset -4px -4px 8px var(--hi);
+  --in-sm: inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi);
+  --reveal-from: translateY(30px);
+  --primary-fg: var(--primary-strong);
+  /* accents: teal leads; plum, ochre, sage and moss come in as dashes */
+  --plum: var(--secondary);
+  --ochre-fg: color-mix(in srgb, var(--accent) 60%, var(--ink)); /* text-safe ochre */
+  --sage-fill: color-mix(in oklab, var(--sage) 85%, var(--deep));
+  background: var(--surface);
+  color: var(--text);
+}
+body:has([data-variant="neu"]) {
+  background: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+}
+
+[data-variant="neu"] .topbar {
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+  backdrop-filter: blur(14px);
+}
+[data-variant="neu"] .brand-mark {
+  box-shadow: var(--out-sm);
+}
+[data-variant="neu"] .topnav a {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: box-shadow 0.25s var(--ease);
+}
+[data-variant="neu"] .topnav a:hover {
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .topbar-phone {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--out-sm);
+  color: var(--primary-fg);
+}
+
+/* raised surfaces */
+[data-variant="neu"] .card,
+[data-variant="neu"] .btn-ghost,
+[data-variant="neu"] .quick-option,
+[data-variant="neu"] .lf-option,
+[data-variant="neu"] .dock {
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .btn-ghost,
+[data-variant="neu"] .quick-option,
+[data-variant="neu"] .lf-option {
+  box-shadow: var(--out-sm);
+  color: inherit;
+}
+/* pressed */
+[data-variant="neu"] .btn-ghost:active,
+[data-variant="neu"] .quick-option:active,
+[data-variant="neu"] .lf-option[aria-pressed="true"],
+[data-variant="neu"] .topnav a:active {
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .lf-option[aria-pressed="true"] {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .lf-option[aria-pressed="true"] .lf-option-label::before {
+  content: "● ";
+  font-size: 0.75em;
+  vertical-align: 0.1em;
+}
+[data-variant="neu"] .quick-option:hover,
+[data-variant="neu"] .lf-option:hover {
+  transform: translateY(-2px);
+}
+[data-variant="neu"] .step:hover {
+  transform: translateY(-4px);
+}
+[data-variant="neu"] .step {
+  transition: transform 0.4s var(--ease);
+}
+
+/* primary keeps its colour but is shaped like the rest */
+[data-variant="neu"] .btn-primary,
+[data-variant="neu"] .lf-next,
+[data-variant="neu"] .dock-primary {
+  box-shadow:
+    3px 3px 8px var(--lo),
+    -3px -3px 8px var(--hi),
+    inset 0 1px 0 color-mix(in oklab, var(--primary) 55%, white);
+}
+[data-variant="neu"] .btn-primary:active,
+[data-variant="neu"] .lf-next:active {
+  box-shadow:
+    inset 4px 4px 8px color-mix(in oklab, var(--primary) 60%, black),
+    inset -4px -4px 8px color-mix(in oklab, var(--primary) 60%, white);
+}
+
+/* ── Hero shapes: extruded discs, a well, a pill ─────────────── */
+[data-variant="neu"] .shape-1 {
+  width: min(40vw, 520px);
+  aspect-ratio: 1;
+  right: -6vw;
+  top: 8vh;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow:
+    18px 18px 40px var(--lo),
+    -18px -18px 40px var(--hi);
+}
+[data-variant="neu"] .shape-1::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  box-shadow:
+    inset 10px 10px 20px var(--lo),
+    inset -10px -10px 20px var(--hi);
+}
+[data-variant="neu"] .shape-2 {
+  width: 64px;
+  aspect-ratio: 1;
+  right: calc(-6vw + min(20vw, 260px) - 32px);
+  top: calc(8vh + min(20vw, 260px) - 32px);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow:
+    8px 8px 18px var(--lo),
+    inset -4px -4px 10px color-mix(in oklab, var(--primary) 70%, black),
+    inset 4px 4px 10px color-mix(in oklab, var(--primary) 50%, white);
+  animation: n-bob 6s ease-in-out infinite alternate;
+}
+[data-variant="neu"] .shape-3 {
+  width: 220px;
+  height: 64px;
+  left: 16vw;
+  top: calc(var(--topbar-h) + 20px);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .shape-4 {
+  width: 140px;
+  aspect-ratio: 1;
+  left: 46%;
+  top: 12vh;
+  border-radius: 24px;
+  box-shadow: var(--in);
+  transform: rotate(14deg);
+}
+[data-variant="neu"] .shape-5 {
+  width: 26px;
+  aspect-ratio: 1;
+  left: calc(16vw + 20px);
+  top: calc(var(--topbar-h) + 39px);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 3px 3px 6px var(--lo);
+  animation: n-slide 7s ease-in-out infinite alternate;
+}
+@keyframes n-bob {
+  to {
+    transform: translateY(-14px);
+  }
+}
+@keyframes n-slide {
+  to {
+    transform: translateX(154px);
+  }
+}
+@media (max-width: 900px) {
+  [data-variant="neu"] .shape-1 {
+    width: 70vw;
+    right: -30vw;
+    top: 4vh;
+    opacity: 0.7;
+  }
+  [data-variant="neu"] .shape-2,
+  [data-variant="neu"] .shape-3,
+  [data-variant="neu"] .shape-4,
+  [data-variant="neu"] .shape-5 {
+    display: none;
+  }
+}
+
+[data-variant="neu"] .hero-phone {
+  background: var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .hero-phone svg {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--out-sm);
+}
+[data-variant="neu"] .hero-mail {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .hero-card {
+  padding: 28px;
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+/* service panels: extruded frames; tinted placeholders until photos */
+[data-variant="neu"] .svc {
+  border: 6px solid var(--surface);
+  box-shadow: var(--out);
+}
+[data-variant="neu"] .svc-art {
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: inset 3px 3px 8px #0003;
+}
+[data-variant="neu"] .svc-art-1 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--primary) 60%, white), transparent 55%),
+    linear-gradient(160deg, var(--primary), color-mix(in oklab, var(--primary) 55%, var(--deep)));
+}
+[data-variant="neu"] .svc-art-2 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--sage) 50%, white), transparent 55%),
+    linear-gradient(160deg, var(--sage), var(--deep));
+}
+[data-variant="neu"] .svc-art-3 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--secondary) 55%, white), transparent 55%),
+    linear-gradient(160deg, var(--secondary), color-mix(in oklab, var(--secondary) 60%, var(--ink)));
+}
+[data-variant="neu"] .svc-art-4 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--accent) 50%, white), transparent 55%),
+    linear-gradient(160deg, var(--accent), color-mix(in oklab, var(--accent) 55%, var(--ink)));
+}
+[data-variant="neu"] .ba-frame {
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .quote {
+  padding: 28px 32px;
+  border-radius: var(--radius);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .step-n {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  box-shadow: var(--in-sm);
+  margin-bottom: 28px;
+}
+[data-variant="neu"] .contact-line svg {
+  width: 42px;
+  height: 42px;
+  padding: 11px;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--out-sm);
+  color: var(--primary-fg);
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+[data-variant="neu"] .form-card {
+  padding: clamp(24px, 3vw, 40px);
+}
+[data-variant="neu"] .lf-progress {
+  height: 12px;
+  padding: 3px;
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .lf-input {
+  border: 0;
+  background: var(--surface);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .lf-input::placeholder {
+  color: color-mix(in oklab, var(--ink) 40%, transparent);
+}
+[data-variant="neu"] .lf-input:focus {
+  outline: none;
+  box-shadow:
+    var(--in),
+    0 0 0 2px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+[data-variant="neu"] .lf-input[aria-invalid="true"] {
+  box-shadow:
+    var(--in),
+    0 0 0 2px var(--danger);
+}
+[data-variant="neu"] .lf-consent input {
+  appearance: none;
+  border-radius: 6px;
+  box-shadow: var(--in-sm);
+  display: grid;
+  place-items: center;
+}
+[data-variant="neu"] .lf-consent input:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--primary);
+}
+[data-variant="neu"] .lf-done-mark {
+  box-shadow: var(--out);
+}
+
+/* ── Hero stats, summary, top-bar contact ──────────────────── */
+[data-variant="neu"] .hero-stats {
+  margin-top: 8px;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--in);
+}
+[data-variant="neu"] .hero-stats strong {
+  color: var(--primary-fg);
+}
+[data-variant="neu"] .summary-list {
+  gap: 8px;
+}
+[data-variant="neu"] .summary-row {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--in-sm);
+}
+[data-variant="neu"] .topbar-mail {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--out-sm);
+}
+
+/* ── Accent dashes ──────────────────────────────────────────── */
+/* a short colour dash leads every eyebrow; each section has its own */
+[data-variant="neu"] .eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 4px;
+  margin-right: 10px;
+  border-radius: 2px;
+  vertical-align: 0.2em;
+  background: var(--dash, var(--primary));
+  box-shadow: 1px 1px 3px var(--lo);
+}
+[data-variant="neu"] .hero {
+  --dash: var(--accent);
+}
+[data-variant="neu"] .services {
+  --dash: var(--plum);
+}
+[data-variant="neu"] .proof {
+  --dash: var(--deep);
+}
+[data-variant="neu"] .process {
+  --dash: var(--accent);
+}
+[data-variant="neu"] .contact {
+  --dash: var(--plum);
+}
+
+/* hero: a plum bead in the tilted well, sage in the big disc */
+[data-variant="neu"] .shape-4::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  aspect-ratio: 1;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: var(--plum);
+  box-shadow:
+    4px 4px 8px var(--lo),
+    inset 3px 3px 6px color-mix(in oklab, var(--plum) 55%, white),
+    inset -3px -3px 6px color-mix(in oklab, var(--plum) 70%, black);
+  animation: n-bob 5s ease-in-out infinite alternate-reverse;
+}
+[data-variant="neu"] .shape-1::after {
+  background: color-mix(in oklab, var(--sage) 22%, var(--surface));
+}
+
+/* hero figures: a dash per figure, in turn */
+[data-variant="neu"] .hero-stats li::before {
+  content: "";
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+  background: var(--primary);
+}
+[data-variant="neu"] .hero-stats li:nth-child(2)::before {
+  background: var(--plum);
+}
+[data-variant="neu"] .hero-stats li:nth-child(3)::before {
+  background: var(--accent);
+}
+[data-variant="neu"] .hero-stats li:nth-child(4)::before {
+  background: var(--sage-fill);
+}
+
+/* process: each step number sits in a well tinted with its own colour */
+[data-variant="neu"] .step {
+  --c: var(--primary-fg);
+}
+[data-variant="neu"] .step:nth-child(2) {
+  --c: var(--plum);
+}
+[data-variant="neu"] .step:nth-child(3) {
+  --c: var(--ochre-fg);
+}
+[data-variant="neu"] .step:nth-child(4) {
+  --c: var(--deep);
+}
+[data-variant="neu"] .step-n {
+  color: var(--c);
+  font-size: 1.05rem;
+  background: color-mix(in oklab, var(--c) 14%, var(--surface));
+}
+
+/* proof */
+[data-variant="neu"] .quote figcaption {
+  color: var(--plum);
+  opacity: 1;
+  font-weight: 600;
+}
+[data-variant="neu"] .proof-points li:nth-child(2) svg {
+  color: var(--plum);
+}
+[data-variant="neu"] .proof-points li:nth-child(3) svg {
+  color: var(--ochre-fg);
+}
+
+/* contact icons: phone stays teal, the rest pick up the palette */
+[data-variant="neu"] .contact-card .contact-line:nth-child(2) svg,
+[data-variant="neu"] .topbar-mail svg {
+  color: var(--plum);
+}
+[data-variant="neu"] .contact-card .contact-line:nth-child(3) svg {
+  color: var(--deep);
+}
+[data-variant="neu"] .contact-card .contact-line:nth-child(4) svg {
+  color: var(--ochre-fg);
+}
+[data-variant="neu"] .summary-pct {
+  color: var(--plum);
+}
