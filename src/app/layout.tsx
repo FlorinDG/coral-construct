@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Coral Construct — ^Free quote",
-  description: "^General contractor in Belgium — new builds, renovations and extensions. Call or request a free quote.",
+  title: "Coral Atelier — ^Free quote",
+  description: "^Painting and decoration in Belgium — paint, plastering, wallpapers and custom decorations. Call or request a free quote.",
+  // Placeholder copy and contact details are still live: keep search engines
+  // out until the real content is in. Remove this to go public.
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

@@ -10,116 +10,134 @@ import type { Step } from "./types";
 //    even if the visitor stops there.
 
 export const PROJECT_TYPES = [
-  { value: "newbuild", label: "^New build", hint: "^From plot to keys" },
-  { value: "renovation", label: "^Renovation", hint: "^Rooms or the whole house" },
-  { value: "extension", label: "^Extension", hint: "^More space, same home" },
-  { value: "other", label: "^Something else", hint: "^Tell us in a sentence" },
+  { value: "paint", label: "^Paint", hint: "^Walls, ceilings, woodwork" },
+  { value: "plastering", label: "^Plastering", hint: "^Walls and ceilings" },
+  { value: "wallpaper", label: "^Wallpapers", hint: "^One room or the whole house" },
+  { value: "custom", label: "^Custom decorations", hint: "^Tell us in a sentence" },
+];
+
+const SIZE = [
+  { value: "s", label: "^Under 30 m²" },
+  { value: "m", label: "^30–100 m²" },
+  { value: "l", label: "^Over 100 m²" },
+  { value: "unknown", label: "^Not sure" },
 ];
 
 export const FLOW: Step[] = [
   {
     id: "project",
-    title: "^What are you planning?",
-    questions: [{ id: "project", kind: "choice", label: "^Project type", required: true, options: PROJECT_TYPES }],
+    title: "^What can we do for you?",
+    questions: [{ id: "project", kind: "choice", label: "^Type of work", required: true, options: PROJECT_TYPES }],
   },
 
-  // ── Branch: one scope step per project type ──────────────────────────
+  // ── Branch: one scope step per type of work ──────────────────────────
   {
-    id: "scope-newbuild",
-    title: "^About the build",
-    when: { q: "project", eq: "newbuild" },
+    id: "scope-paint",
+    title: "^About the paintwork",
+    when: { q: "project", eq: "paint" },
     questions: [
       {
-        id: "hasPlot",
+        id: "paintWhere",
         kind: "choice",
-        label: "^Do you already have a plot?",
-        short: "^Plot",
+        label: "^Inside or outside?",
+        short: "^Where",
         required: true,
         options: [
-          { value: "yes", label: "^Yes" },
-          { value: "searching", label: "^Still searching" },
+          { value: "interior", label: "^Interior" },
+          { value: "exterior", label: "^Exterior" },
+          { value: "both", label: "^Both" },
         ],
       },
       {
-        id: "plotLocation",
-        kind: "text",
-        label: "^Where is the plot?",
-        short: "^Plot location",
-        placeholder: "^Municipality",
-        when: { q: "hasPlot", eq: "yes" },
-      },
-      {
-        id: "hasPermit",
-        kind: "choice",
-        label: "^Building permit?",
-        short: "^Permit",
-        when: { q: "hasPlot", eq: "yes" },
-        options: [
-          { value: "granted", label: "^Granted" },
-          { value: "pending", label: "^Applied" },
-          { value: "none", label: "^Not yet" },
-        ],
-      },
-    ],
-  },
-  {
-    id: "scope-renovation",
-    title: "^What needs work?",
-    when: { q: "project", eq: "renovation" },
-    questions: [
-      {
-        id: "rooms",
+        id: "paintSurfaces",
         kind: "multi",
-        label: "^Pick all that apply",
-        short: "^Work on",
+        label: "^What gets painted?",
+        short: "^Surfaces",
         required: true,
         min: 1,
+        when: { q: "paintWhere", in: ["interior", "both"] },
         options: [
-          { value: "kitchen", label: "^Kitchen" },
-          { value: "bathroom", label: "^Bathroom" },
-          { value: "roof", label: "^Roof" },
-          { value: "facade", label: "^Facade / insulation" },
-          { value: "whole", label: "^Whole house" },
+          { value: "walls", label: "^Walls" },
+          { value: "ceilings", label: "^Ceilings" },
+          { value: "woodwork", label: "^Doors / woodwork" },
+          { value: "stairs", label: "^Stairs" },
         ],
       },
-      {
-        id: "occupied",
-        kind: "choice",
-        label: "^Will you live there during the works?",
-        short: "^Living there",
-        when: { not: { q: "rooms", includes: "whole" } },
-        options: [
-          { value: "yes", label: "^Yes" },
-          { value: "no", label: "^No" },
-        ],
-      },
+      { id: "paintSize", kind: "choice", label: "^Approximate surface", short: "^Surface", options: SIZE },
     ],
   },
   {
-    id: "scope-extension",
-    title: "^How much extra space?",
-    when: { q: "project", eq: "extension" },
+    id: "scope-plastering",
+    title: "^About the plastering",
+    when: { q: "project", eq: "plastering" },
     questions: [
       {
-        id: "extensionSize",
+        id: "plasterJob",
         kind: "choice",
-        label: "^Approximate size",
+        label: "^New plastering or repair?",
+        short: "^Job",
         required: true,
         options: [
-          { value: "s", label: "^Under 20 m²" },
-          { value: "m", label: "^20–40 m²" },
-          { value: "l", label: "^Over 40 m²" },
-          { value: "unknown", label: "^Not sure yet" },
+          { value: "new", label: "^New plastering" },
+          { value: "repair", label: "^Repair / skim existing" },
+        ],
+      },
+      { id: "plasterSize", kind: "choice", label: "^Approximate surface", short: "^Surface", options: SIZE },
+    ],
+  },
+  {
+    id: "scope-wallpaper",
+    title: "^About the wallpaper",
+    when: { q: "project", eq: "wallpaper" },
+    questions: [
+      {
+        id: "wallpaperRooms",
+        kind: "choice",
+        label: "^How many rooms?",
+        short: "^Rooms",
+        required: true,
+        options: [
+          { value: "1", label: "^One room / one wall" },
+          { value: "2-3", label: "^2–3 rooms" },
+          { value: "4+", label: "^4 or more" },
+        ],
+      },
+      {
+        id: "wallpaperSupply",
+        kind: "choice",
+        label: "^Do you have the wallpaper?",
+        short: "^Wallpaper",
+        options: [
+          { value: "have", label: "^Yes, I have it" },
+          { value: "advice", label: "^No, I'd like advice" },
         ],
       },
     ],
   },
   {
-    id: "scope-other",
+    id: "scope-custom",
     title: "^Tell us briefly",
-    when: { q: "project", eq: "other" },
+    when: { q: "project", eq: "custom" },
     questions: [
-      { id: "otherDescription", kind: "textarea", label: "^What do you have in mind?", short: "^Description", required: true, placeholder: "^A sentence or two" },
+      { id: "customDescription", kind: "textarea", label: "^What do you have in mind?", short: "^Description", required: true, placeholder: "^A sentence or two" },
+    ],
+  },
+
+  {
+    // One tap; "advice" is the strongest signal for a site visit.
+    id: "colours",
+    title: "^Have you chosen colours?",
+    questions: [
+      {
+        id: "colourChoice",
+        kind: "choice",
+        label: "^Colours",
+        options: [
+          { value: "chosen", label: "^Yes, I know what I want" },
+          { value: "advice", label: "^I'd like colour advice" },
+          { value: "same", label: "^Same as now" },
+        ],
+      },
     ],
   },
 
@@ -153,10 +171,10 @@ export const FLOW: Step[] = [
         kind: "choice",
         label: "^Budget",
         options: [
-          { value: "lt50", label: "^Under €50k" },
-          { value: "50-150", label: "^€50k–150k" },
-          { value: "150-400", label: "^€150k–400k" },
-          { value: "gt400", label: "^Over €400k" },
+          { value: "lt2", label: "^Under €2k" },
+          { value: "2-5", label: "^€2k–5k" },
+          { value: "5-15", label: "^€5k–15k" },
+          { value: "gt15", label: "^Over €15k" },
           { value: "unknown", label: "^Rather not say" },
         ],
       },

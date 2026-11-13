@@ -1,7 +1,7 @@
 // Every "^..." string is placeholder copy to be defined.
 
 export const CONTACT = {
-  company: "Coral Construct",
+  company: "Coral Atelier",
   phone: "^+32 000 00 00 00",
   phoneHref: "tel:+32000000000",
   whatsappHref: "https://wa.me/32000000000",
@@ -17,43 +17,64 @@ export const CONTACT = {
 };
 
 export const HERO = {
-  eyebrow: "^General contractor · Belgium",
-  title: ["^Build it once.", "^Build it right."],
-  lead: "^One team from plan to keys — new builds, renovations and extensions.",
+  eyebrow: "^Painting & decoration · Belgium",
+  title: ["^Finish it once.", "^Finish it right."],
+  lead: "^Paint, plastering, wallpaper and custom decoration — inside and out.",
   quickStartLabel: "^Start your free quote — what are you planning?",
 };
 
-export const SERVICES = {
+export type Service = { key: string; title: string; tagline: string; text: string; image: string | null };
+
+export const SERVICES: { eyebrow: string; title: string; items: Service[] } = {
   eyebrow: "^What we do",
-  title: "^One contractor, the whole job",
+  title: "^Every finish, one team",
   items: [
-    { key: "newbuild", title: "^New build", text: "^Turn-key homes from foundation to finish." },
-    { key: "renovation", title: "^Renovation", text: "^Kitchens, bathrooms, roofs, whole houses." },
-    { key: "extension", title: "^Extension", text: "^More space without moving out." },
-    { key: "energy", title: "^Energy upgrade", text: "^Insulation and facades that pay back." },
+    // `key` is the form's project type: the panel button starts the quote with it.
+    // `image`: photo path once available; until then each panel draws its finish.
+    { key: "paint", title: "^Paint", tagline: "^Colour, done properly", text: "^Walls, ceilings, woodwork — interior and exterior.", image: null },
+    { key: "plastering", title: "^Plastering", tagline: "^Smooth from the first coat", text: "^Walls and ceilings, base coat to skim, ready for paint.", image: null },
+    { key: "wallpaper", title: "^Wallpapers", tagline: "^Pattern, perfectly aligned", text: "^Hung straight, seams invisible.", image: null },
+    { key: "custom", title: "^Custom decorations", tagline: "^One of a kind", text: "^Feature walls, effects and one-off finishes.", image: null },
   ],
 };
 
+/** The hero colour fan: the house palette as paint chips. */
+export const SWATCHES = [
+  { name: "^Lagoon", hex: "#339989" },
+  { name: "^Moss", hex: "#344B46" },
+  { name: "^Sage", hex: "#97B1AB" },
+  { name: "^Linen", hex: "#F3EADA" },
+  { name: "^Plum", hex: "#734978" },
+  { name: "^Ochre", hex: "#9A8A3A" },
+];
+
 export const PROOF = {
   eyebrow: "^Why Coral",
-  title: "^Numbers we stand behind",
+  title: "^See the difference",
   stats: [
     { value: "^250+", label: "^Projects delivered" },
     { value: "^15", label: "^Years on site" },
-    { value: "^98%", label: "^On-time handover" },
-    { value: "^10y", label: "^Structural warranty" },
+    { value: "^98%", label: "^On-time delivery" },
+    { value: "^10y", label: "^Finish warranty" },
   ],
   quote: { text: "^They did what they promised, when they promised it.", who: "^Client name, City" },
+  points: ["^Floors and furniture covered", "^Site cleaned every evening", "^Colour advice included"],
+  /** Photos go here later; without them the slider shows drawn placeholders. */
+  beforeAfter: {
+    before: null as string | null,
+    after: null as string | null,
+    caption: "^Living room, City — two coats, one day",
+  },
 };
 
 export const PROCESS = {
   eyebrow: "^How it works",
-  title: "^From first call to keys",
+  title: "^From first call to last coat",
   steps: [
     { title: "^Call or form", text: "^Tell us what you plan — two minutes." },
     { title: "^Site visit", text: "^We come by, measure and listen." },
     { title: "^Fixed quote", text: "^Clear price, clear planning." },
-    { title: "^Build", text: "^One site lead, weekly updates." },
+    { title: "^Prep, paint, finish", text: "^Covered, clean, on schedule." },
   ],
 };
 

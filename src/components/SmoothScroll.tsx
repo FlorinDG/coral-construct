@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect, useState } from "react";
 import "lenis/dist/lenis.css";
 
@@ -42,4 +42,13 @@ export function useSectionReveal() {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
+}
+
+/** Smooth-scroll to a selector through Lenis, falling back to native smooth scroll. */
+export function useScrollTo() {
+  const lenis = useLenis();
+  return (target: string) => {
+    if (lenis) lenis.scrollTo(target, { offset: 0 });
+    else document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+  };
 }

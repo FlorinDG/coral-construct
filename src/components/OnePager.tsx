@@ -1,13 +1,14 @@
 "use client";
 
-import { useLenis } from "lenis/react";
-import { CONTACT, CONTACT_SECTION, HERO, NAV, PROCESS, PROOF, SERVICES } from "@/content/site";
+import { CONTACT, CONTACT_SECTION, HERO, NAV, PROCESS, PROOF, SERVICES, SWATCHES } from "@/content/site";
+import { BeforeAfter } from "./BeforeAfter";
 import { PROJECT_TYPES } from "@/lib/form/flow";
 import { LeadForm } from "./form/LeadForm";
 import { LeadSummary } from "./form/LeadSummary";
 import { LeadFormProvider, useLeadForm } from "./form/LeadFormProvider";
 import { OpenStatus } from "./OpenStatus";
-import { SmoothScroll, useSectionReveal } from "./SmoothScroll";
+import { Services } from "./Services";
+import { SmoothScroll, useScrollTo, useSectionReveal } from "./SmoothScroll";
 
 export type Variant = "modern" | "neu";
 
@@ -27,14 +28,6 @@ export function OnePager({ variant, className = "" }: { variant: Variant; classN
 
 function d(n: number) {
   return { "--d": n } as React.CSSProperties;
-}
-
-function useScrollTo() {
-  const lenis = useLenis();
-  return (target: string) => {
-    if (lenis) lenis.scrollTo(target, { offset: 0 });
-    else document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
-  };
 }
 
 function Page({ variant, className }: { variant: Variant; className: string }) {
@@ -90,6 +83,17 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
             <span className="shape shape-3" />
             <span className="shape shape-4" />
             <span className="shape shape-5" />
+            <div className="swatches">
+              {SWATCHES.map((sw, i) => (
+                <span key={sw.hex} className="swatch" style={{ "--i": i, "--c": sw.hex } as React.CSSProperties}>
+                  <small>
+                    {sw.name}
+                    <br />
+                    {sw.hex.slice(1)}
+                  </small>
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="hero-copy">
@@ -100,6 +104,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
               {HERO.title.map((line, i) => (
                 <span key={i} data-r style={d(1 + i)}>
                   {line}
+                  {i === HERO.title.length - 1 && <Brush />}
                 </span>
               ))}
             </h1>
@@ -158,14 +163,8 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
         {/* ── Services ─────────────────────────────────────────── */}
         <section id="services" className="sec services" data-section>
           <SectionHead eyebrow={SERVICES.eyebrow} title={SERVICES.title} />
-          <div className="grid-4">
-            {SERVICES.items.map((s, i) => (
-              <article key={s.key} className="card service" data-r style={d(2 + i)}>
-                <span className={`service-shape service-shape-${i + 1}`} aria-hidden />
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
-              </article>
-            ))}
+          <div className="svc-wrap" data-r style={d(2)}>
+            <Services items={SERVICES.items} />
           </div>
           <InlineCta />
         </section>
@@ -173,18 +172,24 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
         {/* ── Proof ────────────────────────────────────────────── */}
         <section id="proof" className="sec proof" data-section>
           <SectionHead eyebrow={PROOF.eyebrow} title={PROOF.title} />
-          <div className="grid-4">
-            {PROOF.stats.map((s, i) => (
-              <div key={i} className="card stat" data-r style={d(2 + i)}>
-                <strong>{s.value}</strong>
-                <span>{s.label}</span>
-              </div>
-            ))}
+          <div className="proof-grid">
+            <div className="card proof-ba" data-r style={d(2)}>
+              <BeforeAfter {...PROOF.beforeAfter} />
+            </div>
+            <div className="proof-side">
+              <figure className="quote" data-r style={d(3)}>
+                <blockquote>“{PROOF.quote.text}”</blockquote>
+                <figcaption>— {PROOF.quote.who}</figcaption>
+              </figure>
+              <ul className="proof-points">
+                {PROOF.points.map((pt, i) => (
+                  <li key={pt} data-r style={d(4 + i)}>
+                    <Check /> {pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <figure className="quote" data-r style={d(6)}>
-            <blockquote>“{PROOF.quote.text}”</blockquote>
-            <figcaption>— {PROOF.quote.who}</figcaption>
-          </figure>
           <InlineCta />
         </section>
 
@@ -336,6 +341,23 @@ function PinIcon() {
     <svg {...ic}>
       <path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" />
       <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+/** Hand-drawn brush swash behind the last headline line. */
+function Brush() {
+  return (
+    <svg className="brush" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden>
+      <path d="M6 30C70 18 190 15 310 14s210-4 282 4l4 9c-30 3-8 11-34 15-150 14-310 18-470 16-40 0-80 4-92-6-6-6-6-16 6-22z" />
+      <path d="M40 50c120 4 300 2 470-6" className="brush-dry" />
+      <path d="M520 20c30-1 52 1 72 4" className="brush-dry" />
+    </svg>
+  );
+}
+function Check() {
+  return (
+    <svg {...ic} width={18} height={18}>
+      <path d="m5 12 5 5 9-10" />
     </svg>
   );
 }

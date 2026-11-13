@@ -14,6 +14,10 @@
   --in-sm: inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi);
   --reveal-from: translateY(30px);
   --primary-fg: var(--primary-strong);
+  /* accents: teal leads; plum, ochre, sage and moss come in as dashes */
+  --plum: var(--secondary);
+  --ochre-fg: color-mix(in srgb, var(--accent) 60%, var(--ink)); /* text-safe ochre */
+  --sage-fill: color-mix(in oklab, var(--sage) 85%, var(--deep));
   background: var(--surface);
   color: var(--text);
 }
@@ -77,11 +81,9 @@ body:has([data-variant="neu"]) {
 [data-variant="neu"] .lf-option:hover {
   transform: translateY(-2px);
 }
-[data-variant="neu"] .service:hover,
 [data-variant="neu"] .step:hover {
   transform: translateY(-4px);
 }
-[data-variant="neu"] .service,
 [data-variant="neu"] .step {
   transition: transform 0.4s var(--ease);
 }
@@ -206,38 +208,37 @@ body:has([data-variant="neu"]) {
 }
 
 /* ── Sections ───────────────────────────────────────────────── */
-[data-variant="neu"] .service-shape {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 28px;
-  border-radius: 12px;
-  box-shadow: var(--in);
+/* service panels: extruded frames; tinted placeholders until photos */
+[data-variant="neu"] .svc {
+  border: 6px solid var(--surface);
+  box-shadow: var(--out);
 }
-[data-variant="neu"] .service-shape::after {
-  content: "";
-  width: 18px;
-  height: 18px;
-  background: var(--primary);
-  box-shadow: 3px 3px 6px var(--lo);
+[data-variant="neu"] .svc-art {
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: inset 3px 3px 8px #0003;
 }
-[data-variant="neu"] .service-shape-1::after {
-  border-radius: 50%;
+[data-variant="neu"] .svc-art-1 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--primary) 60%, white), transparent 55%),
+    linear-gradient(160deg, var(--primary), color-mix(in oklab, var(--primary) 55%, var(--deep)));
 }
-[data-variant="neu"] .service-shape-2::after {
-  border-radius: 6px;
+[data-variant="neu"] .svc-art-2 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--sage) 50%, white), transparent 55%),
+    linear-gradient(160deg, var(--sage), var(--deep));
 }
-[data-variant="neu"] .service-shape-3::after {
-  background: var(--secondary);
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+[data-variant="neu"] .svc-art-3 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--secondary) 55%, white), transparent 55%),
+    linear-gradient(160deg, var(--secondary), color-mix(in oklab, var(--secondary) 60%, var(--ink)));
 }
-[data-variant="neu"] .service-shape-4::after {
-  border-radius: 50% 50% 50% 4px;
-  background: var(--accent);
+[data-variant="neu"] .svc-art-4 {
+  background:
+    radial-gradient(circle at 75% 25%, color-mix(in oklab, var(--accent) 50%, white), transparent 55%),
+    linear-gradient(160deg, var(--accent), color-mix(in oklab, var(--accent) 55%, var(--ink)));
 }
-[data-variant="neu"] .stat strong {
-  color: var(--primary-fg);
+[data-variant="neu"] .ba-frame {
+  box-shadow: var(--in-sm);
 }
 [data-variant="neu"] .quote {
   padding: 28px 32px;
@@ -332,6 +333,119 @@ body:has([data-variant="neu"]) {
   border-radius: var(--radius-sm);
   box-shadow: var(--out-sm);
 }
+
+/* ── Accent dashes ──────────────────────────────────────────── */
+/* a short colour dash leads every eyebrow; each section has its own */
+[data-variant="neu"] .eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 4px;
+  margin-right: 10px;
+  border-radius: 2px;
+  vertical-align: 0.2em;
+  background: var(--dash, var(--primary));
+  box-shadow: 1px 1px 3px var(--lo);
+}
+[data-variant="neu"] .hero {
+  --dash: var(--accent);
+}
+[data-variant="neu"] .services {
+  --dash: var(--plum);
+}
+[data-variant="neu"] .proof {
+  --dash: var(--deep);
+}
+[data-variant="neu"] .process {
+  --dash: var(--accent);
+}
+[data-variant="neu"] .contact {
+  --dash: var(--plum);
+}
+
+/* hero: a plum bead in the tilted well, sage in the big disc */
+[data-variant="neu"] .shape-4::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  aspect-ratio: 1;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: var(--plum);
+  box-shadow:
+    4px 4px 8px var(--lo),
+    inset 3px 3px 6px color-mix(in oklab, var(--plum) 55%, white),
+    inset -3px -3px 6px color-mix(in oklab, var(--plum) 70%, black);
+  animation: n-bob 5s ease-in-out infinite alternate-reverse;
+}
+[data-variant="neu"] .shape-1::after {
+  background: color-mix(in oklab, var(--sage) 22%, var(--surface));
+}
+
+/* hero figures: a dash per figure, in turn */
+[data-variant="neu"] .hero-stats li::before {
+  content: "";
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+  background: var(--primary);
+}
+[data-variant="neu"] .hero-stats li:nth-child(2)::before {
+  background: var(--plum);
+}
+[data-variant="neu"] .hero-stats li:nth-child(3)::before {
+  background: var(--accent);
+}
+[data-variant="neu"] .hero-stats li:nth-child(4)::before {
+  background: var(--sage-fill);
+}
+
+/* process: each step number sits in a well tinted with its own colour */
+[data-variant="neu"] .step {
+  --c: var(--primary-fg);
+}
+[data-variant="neu"] .step:nth-child(2) {
+  --c: var(--plum);
+}
+[data-variant="neu"] .step:nth-child(3) {
+  --c: var(--ochre-fg);
+}
+[data-variant="neu"] .step:nth-child(4) {
+  --c: var(--deep);
+}
+[data-variant="neu"] .step-n {
+  color: var(--c);
+  font-size: 1.05rem;
+  background: color-mix(in oklab, var(--c) 14%, var(--surface));
+}
+
+/* proof */
+[data-variant="neu"] .quote figcaption {
+  color: var(--plum);
+  opacity: 1;
+  font-weight: 600;
+}
+[data-variant="neu"] .proof-points li:nth-child(2) svg {
+  color: var(--plum);
+}
+[data-variant="neu"] .proof-points li:nth-child(3) svg {
+  color: var(--ochre-fg);
+}
+
+/* contact icons: phone stays teal, the rest pick up the palette */
+[data-variant="neu"] .contact-card .contact-line:nth-child(2) svg,
 [data-variant="neu"] .topbar-mail svg {
-  color: var(--primary-fg);
+  color: var(--plum);
+}
+[data-variant="neu"] .contact-card .contact-line:nth-child(3) svg {
+  color: var(--deep);
+}
+[data-variant="neu"] .contact-card .contact-line:nth-child(4) svg {
+  color: var(--ochre-fg);
+}
+[data-variant="neu"] .summary-pct {
+  color: var(--plum);
 }

@@ -211,21 +211,142 @@ body {
   margin-right: 6px;
 }
 
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
+/* ── Services: expanding panels ──────────────────────────────── */
+.svc-row {
+  --svc-tag: color-mix(in oklab, var(--accent) 45%, white);
+  display: flex;
+  gap: 14px;
+  height: clamp(380px, 58vh, 600px);
 }
-@media (max-width: 1000px) {
-  .grid-4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.svc {
+  position: relative;
+  isolation: isolate;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  border-radius: calc(var(--radius) + 8px);
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--paper);
+  transition: flex-grow 0.6s var(--ease);
+}
+.svc[data-open] {
+  flex-grow: 4;
+  cursor: default;
+}
+.svc-art,
+.svc-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.svc-art {
+  transition:
+    filter 0.5s var(--ease),
+    opacity 0.5s var(--ease),
+    transform 0.8s var(--ease);
+}
+.svc-art img {
+  object-fit: cover;
+}
+.svc[data-open] .svc-art {
+  transform: scale(1.06);
+}
+.svc:not([data-open]) .svc-art {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+.svc-shade {
+  background: linear-gradient(
+    to top,
+    color-mix(in oklab, var(--ink) 88%, transparent),
+    color-mix(in oklab, var(--ink) 35%, transparent) 50%,
+    transparent 80%
+  );
+}
+.svc-title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.svc[data-open] .svc-title {
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+}
+.svc:not([data-open]) .svc-title {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  align-self: flex-start;
+  opacity: 0.85;
+}
+.svc-toggle {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: inherit;
+  text-align: left;
+}
+.svc-body {
+  min-width: 300px;
+  max-width: 30rem;
+  padding-top: 12px;
+}
+.svc[data-open] .svc-body {
+  animation: svc-in 0.5s var(--ease) 0.2s both;
+}
+@keyframes svc-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
   }
 }
-@media (max-width: 560px) {
-  .grid-4 {
-    grid-template-columns: 1fr;
+.svc-tagline {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--svc-tag);
+}
+.svc-text {
+  margin: 0 0 22px;
+  line-height: 1.5;
+  color: color-mix(in oklab, var(--paper) 86%, transparent);
+}
+@media (max-width: 900px) {
+  /* stack: panels open downwards, titles stay horizontal */
+  .svc-row {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
+  .svc {
+    flex: none;
+    height: 72px;
+    padding: 0 22px;
+    justify-content: center;
+    transition: height 0.5s var(--ease);
+  }
+  .svc[data-open] {
+    height: min(440px, 72svh);
+    padding: 24px 22px;
+    justify-content: flex-end;
+  }
+  .svc:not([data-open]) .svc-title {
+    writing-mode: horizontal-tb;
+    rotate: none;
+    align-self: auto;
+  }
+  .svc-body {
+    min-width: 0;
   }
 }
+
 .card {
   border-radius: var(--radius);
   padding: 28px;
@@ -405,17 +526,144 @@ body {
 }
 
 /* ── Proof / process ─────────────────────────────────────────── */
-.stat strong {
-  display: block;
-  font-family: var(--font-head);
-  font-size: clamp(2.4rem, 4vw, 3.6rem);
-  letter-spacing: -0.04em;
-  line-height: 1;
+.proof-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
 }
-.stat span {
-  display: block;
-  margin-top: 10px;
+@media (max-width: 900px) {
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.proof-ba {
+  padding: 12px;
+}
+.proof-side {
+  display: grid;
+  gap: 28px;
+}
+.proof-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.proof-points li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.proof-points svg {
+  flex: none;
+  color: var(--primary-fg);
+}
+
+/* before / after slider */
+.ba {
+  margin: 0;
+}
+.ba-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+}
+.ba-layer {
+  position: absolute;
+  inset: 0;
+}
+.ba-layer img {
+  object-fit: cover;
+}
+.ba-after {
+  clip-path: inset(0 0 0 var(--pos));
+}
+/* placeholder walls until photos exist */
+.ba-before:empty {
+  background:
+    radial-gradient(ellipse 30% 22% at 22% 30%, #8a7a5a55, transparent 70%),
+    radial-gradient(ellipse 18% 26% at 70% 62%, #6b5d4466, transparent 70%),
+    radial-gradient(ellipse 40% 12% at 50% 8%, #5c524055, transparent 70%),
+    linear-gradient(to top, #6d6a60 0 11%, #4c4a44 11% 12%, transparent 12%),
+    #b4ad9c;
+}
+.ba-after:empty {
+  background:
+    linear-gradient(115deg, transparent 40%, #ffffff22 50%, transparent 60%),
+    linear-gradient(to top, var(--paper) 0 11%, #00000022 11% 12%, transparent 12%),
+    var(--primary);
+}
+.ba-tag {
+  position: absolute;
+  top: 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in oklab, var(--ink) 70%, transparent);
+  color: var(--paper);
+  pointer-events: none;
+}
+.ba-tag-before {
+  left: 14px;
+}
+.ba-tag-after {
+  right: 14px;
+}
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--paper);
+  pointer-events: none;
+}
+.ba-handle svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 4px 16px #0004;
+}
+/* real range input on top: keyboard + screen readers; pointer handled by the frame */
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.ba-frame:has(.ba-range:focus-visible) {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+.ba figcaption {
+  padding: 12px 6px 2px;
+  font-size: 0.9rem;
   opacity: 0.75;
+}
+
+/* painter details: drawn only by variants that opt in */
+.swatches,
+.brush {
+  display: none;
 }
 .quote {
   margin: 0;

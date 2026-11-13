@@ -1,4 +1,4 @@
-# coral-website — Coral Construct
+# coral-website — Coral Atelier (painting & decoration)
 
 One-page lead-generation site. Contact is king: phone in the top bar, in the
 hero, in every section CTA, in the contact card, and in a mobile dock.
@@ -17,9 +17,8 @@ hero, in every section CTA, in the contact card, and in a mobile dock.
 
 | Route | What |
 |---|---|
-| `/modern` | Ultra-modern variant |
-| `/neumorphism` | Neumorphism variant |
-| `/` | Temporary chooser between the two |
+| `/` | The live site — neumorphism variant (`/neumorphism` redirects here) |
+| `/modern` | Ultra-modern variant, kept for comparison |
 | `POST /api/lead` | Receives a finished lead |
 
 ## Where things live
@@ -29,6 +28,9 @@ hero, in every section CTA, in the contact card, and in a mobile dock.
 - `src/lib/form/flow.ts` — the form: steps, questions, options and branching (`when`).
 - `src/lib/form/engine.ts` — visibility, validation, pruning; shared by browser and API.
 - `src/components/OnePager.tsx` — the shared page structure.
+- `src/components/Services.tsx` — expanding service panels (after coral-group.be); photos go in `SERVICES.items[].image`, each button starts the quote for its service.
+- `src/components/BeforeAfter.tsx` — before/after slider; photos go in `PROOF.beforeAfter` (`src/content/site.ts`), drawn placeholders until then.
+- `src/lib/fonts.ts` — Exo 2 (headings) + Inter (text), shared by both variants.
 - `src/styles/modern.css`, `src/styles/neu.css` — the two looks, scoped by `data-variant`.
 
 Every `^...` string is placeholder copy: `grep -rn '\^' src` lists what is left to write.
