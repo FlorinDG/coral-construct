@@ -56,7 +56,7 @@ body:has([data-variant="modern"]) {
 }
 [data-variant="modern"] .btn-primary:hover,
 [data-variant="modern"] .lf-next:hover:not(:disabled) {
-  background: color-mix(in oklab, var(--primary) 88%, white);
+  background: color-mix(in oklab, var(--cta) 88%, white);
 }
 [data-variant="modern"] .btn-ghost {
   border: 1px solid var(--line);
@@ -82,7 +82,7 @@ body:has([data-variant="modern"]) {
 
 /* ── Hero shapes: glowing orbs, ring, grid tile ─────────────── */
 [data-variant="modern"] .hero-title span:last-child {
-  color: var(--primary);
+  color: var(--coral);
 }
 [data-variant="modern"] .shape-1 {
   width: 46vmax;
@@ -125,22 +125,22 @@ body:has([data-variant="modern"]) {
 /* ── Colour fan: the palette as paint chips ─────────────────── */
 [data-variant="modern"] .swatches {
   display: block;
-  /* rivet sits on the figures strip's top line */
-  left: 49%;
+  /* rivet sits on the figures strip's top line; shifts right on narrower screens,
+     where the copy reaches further right than the card's edge moves */
+  left: calc(49% + (1440px - 100vw) * 0.14);
   bottom: calc(100% - 26px);
-  --u: 1.6px;
-}
-@media (max-width: 1280px) {
-  [data-variant="modern"] .swatches {
-    --u: 1.3px;
-  }
+  /* a tighter fan (6°) so it can stay big: 226 chip px wide at full sway, sized to the
+     free width between the email link and the card (≈ 0.344vw − 245px) */
+  --spread: 6deg;
+  --u: clamp(0.8px, (34.4vw - 245px) / 226, 1.5px);
 }
 [data-variant="modern"] .swatch {
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--ink) 30%, transparent),
     -6px 8px 24px #0006;
 }
-@media (max-width: 900px) {
+/* below ~1180px wide there is no room between the copy and the card */
+@media (max-width: 1180px) {
   [data-variant="modern"] .swatches {
     display: none;
   }
@@ -161,7 +161,7 @@ body:has([data-variant="modern"]) {
   bottom: -0.16em;
   width: calc(100% + 0.32em);
   height: 0.4em;
-  color: var(--primary);
+  color: var(--coral);
   opacity: 0.32;
   overflow: visible;
 }

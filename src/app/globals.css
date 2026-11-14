@@ -32,6 +32,7 @@ body {
 
 .site {
   --primary-fg: var(--primary); /* primary as text; light variants override */
+  --brand-fg: var(--coral); /* coral as text (labels); light variants use terracotta */
   font-family: var(--font-body), system-ui, sans-serif;
   --gutter: clamp(16px, 5vw, 72px);
   --topbar-h: 72px;
@@ -48,8 +49,8 @@ body {
   top: -60px;
   z-index: 100;
   padding: 10px 14px;
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--cta);
+  color: var(--on-cta);
   border-radius: 8px;
 }
 .skip:focus {
@@ -78,10 +79,9 @@ body {
   white-space: nowrap;
 }
 .brand-mark {
-  width: 26px;
-  height: 26px;
-  border-radius: 50% 50% 50% 8px;
-  background: var(--primary);
+  width: 34px;
+  height: 34px;
+  color: var(--coral);
   flex: none;
 }
 .topnav {
@@ -154,8 +154,8 @@ body {
     background 0.25s var(--ease);
 }
 .btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--cta);
+  color: var(--on-cta);
 }
 .btn:hover .arrow,
 .quick-option:hover .arrow {
@@ -198,7 +198,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--primary-fg);
+  color: var(--brand-fg);
 }
 .dot {
   display: inline-block;
@@ -691,7 +691,8 @@ body {
     var(--c);
 }
 .swatch {
-  --a: calc((var(--i) - 2.5) * 8deg);
+  /* chips spread --spread apart (8° unless a variant says otherwise), centred on the rivet */
+  --a: calc((var(--i) - (var(--n, 6) - 1) / 2) * var(--spread, 8deg));
   left: calc(-30 * var(--u, 1px));
   bottom: calc(-24 * var(--u, 1px));
   width: calc(60 * var(--u, 1px));
@@ -920,10 +921,17 @@ body {
 .footer {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px 28px;
   font-size: 0.85rem;
   opacity: 0.6;
   padding-top: 24px;
+}
+
+.footer-mark {
+  width: 40px;
+  height: 40px;
+  color: var(--coral);
 }
 
 /* ── Mobile dock: call / whatsapp / quote ───────────────────── */
@@ -954,8 +962,8 @@ body {
     font-size: 0.9rem;
   }
   .dock-primary {
-    background: var(--primary);
-    color: var(--on-primary);
+    background: var(--cta);
+    color: var(--on-cta);
   }
   .sec.contact {
     padding-bottom: 110px;
@@ -1104,8 +1112,8 @@ body {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--cta);
+  color: var(--on-cta);
   transition:
     transform 0.25s var(--ease),
     box-shadow 0.25s var(--ease);

@@ -2,6 +2,7 @@
 
 import { CONTACT, CONTACT_SECTION, HERO, NAV, PROCESS, PROOF, SERVICES, SWATCHES } from "@/content/site";
 import { BeforeAfter } from "./BeforeAfter";
+import { Logo } from "./Logo";
 import { PROJECT_TYPES } from "@/lib/form/flow";
 import { LeadForm } from "./form/LeadForm";
 import { LeadSummary } from "./form/LeadSummary";
@@ -43,7 +44,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
       <header className="topbar">
         <a href="#top" className="brand" aria-label={CONTACT.company}>
-          <span className="brand-mark" aria-hidden />
+          <Logo className="brand-mark" />
           <span className="brand-name">{CONTACT.company}</span>
         </a>
         <nav className="topnav" aria-label="^Sections">
@@ -141,7 +142,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
 
           {/* The colour fan stands on the figures strip, so it follows the layout at every size. */}
           <div className="hero-foot">
-            <div className="swatches" aria-hidden>
+            <div className="swatches" aria-hidden style={{ "--n": SWATCHES.length } as React.CSSProperties}>
               {SWATCHES.map((sw, i) => (
                 <span key={sw.hex} className="swatch" style={{ "--i": i, "--c": sw.hex } as React.CSSProperties}>
                   <small>
@@ -257,6 +258,7 @@ function Page({ variant, className }: { variant: Variant; className: string }) {
             </div>
           </div>
           <footer className="footer">
+            <Logo className="footer-mark" />
             <span>
               © {CONTACT.copyrightYear} {CONTACT.company}
             </span>

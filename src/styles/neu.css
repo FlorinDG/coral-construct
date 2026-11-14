@@ -3,7 +3,8 @@
    it or pressed into it. Light from the top-left.
    ───────────────────────────────────────────────────────────────── */
 [data-variant="neu"] {
-  --surface: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+  /* shell-light, with enough tone left for the white highlight to show */
+  --surface: color-mix(in oklab, var(--shell) 62%, var(--paper));
   --hi: color-mix(in oklab, var(--surface) 30%, white);
   --lo: color-mix(in oklab, var(--surface) 78%, var(--ink));
   --text: var(--ink);
@@ -14,6 +15,7 @@
   --in-sm: inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi);
   --reveal-from: translateY(30px);
   --primary-fg: var(--primary-strong);
+  --brand-fg: var(--terracotta);
   /* accents: teal leads; plum, ochre, sage and moss come in as dashes */
   --plum: var(--secondary);
   --ochre-fg: color-mix(in srgb, var(--accent) 60%, var(--ink)); /* text-safe ochre */
@@ -22,15 +24,12 @@
   color: var(--text);
 }
 body:has([data-variant="neu"]) {
-  background: color-mix(in oklab, var(--paper) 88%, var(--ink) 6%);
+  background: color-mix(in oklab, var(--shell) 62%, var(--paper));
 }
 
 [data-variant="neu"] .topbar {
   background: color-mix(in oklab, var(--surface) 82%, transparent);
   backdrop-filter: blur(14px);
-}
-[data-variant="neu"] .brand-mark {
-  box-shadow: var(--out-sm);
 }
 [data-variant="neu"] .topnav a {
   padding: 8px 14px;
@@ -95,13 +94,13 @@ body:has([data-variant="neu"]) {
   box-shadow:
     3px 3px 8px var(--lo),
     -3px -3px 8px var(--hi),
-    inset 0 1px 0 color-mix(in oklab, var(--primary) 55%, white);
+    inset 0 1px 0 color-mix(in oklab, var(--cta) 55%, white);
 }
 [data-variant="neu"] .btn-primary:active,
 [data-variant="neu"] .lf-next:active {
   box-shadow:
-    inset 4px 4px 8px color-mix(in oklab, var(--primary) 60%, black),
-    inset -4px -4px 8px color-mix(in oklab, var(--primary) 60%, white);
+    inset 4px 4px 8px color-mix(in oklab, var(--cta) 60%, black),
+    inset -4px -4px 8px color-mix(in oklab, var(--cta) 60%, white);
 }
 
 /* ── Hero shapes: extruded discs, a well, a pill ─────────────── */
@@ -464,9 +463,9 @@ body:has([data-variant="neu"]) {
   left: calc(50% + (1440px - 100vw) * 0.12);
   bottom: calc(100% + 24px + 33 * var(--u));
   /* chip size from the free space: width between the email link and the card
-     (≈ 0.344vw − 245px, for a fan 244 chip px wide), height under the headline
-     (≈ 100vh − 591px, for a fan 240 chip px tall) */
-  --u: clamp(0.7px, min((34.4vw - 245px) / 244, (100vh - 591px) / 240), 1.35px);
+     (≈ 0.344vw − 245px, for seven chips: a fan 278 chip px wide at full sway),
+     height under the headline (≈ 100vh − 591px, for a fan 240 chip px tall) */
+  --u: clamp(0.6px, min((34.4vw - 245px) / 290, (100vh - 591px) / 240), 1.35px);
 }
 /* crisp printed chips: a hairline edge, no soft shadow */
 [data-variant="neu"] .swatch,

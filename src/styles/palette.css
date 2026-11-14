@@ -1,6 +1,8 @@
 /* ─────────────────────────────────────────────────────────────────
    PALETTE — the only place colours are defined.
-   Coral Atelier palette (10/11/2026). Main colour: #339989.
+   Coral Atelier palette (10/11/2026; coral family 14/11/2026).
+   Brand colour: coral #FF8559 (logo, calls to action). Working colour:
+   lagoon #339989 (links, selections, icons).
    ───────────────────────────────────────────────────────────────── */
 :root {
   --primary: #339989; /* main colour — CTAs, highlights */
@@ -14,6 +16,16 @@
 
   /* Derived: primary used as text on light surfaces (≥4.5:1 on cream and neu). */
   --primary-strong: color-mix(in srgb, var(--primary) 60%, var(--ink));
+
+  /* Coral family (14/11/2026): the brand colour, its tint and its text-safe shade. */
+  --coral: #ff8559; /* brand — logo, calls to action (with ink text: 7.5:1; never white) */
+  --blush: #ffdccd; /* coral tint — small fills, highlights */
+  --terracotta: #b5472b; /* coral as text on light surfaces (≈5:1 on shell) */
+  --shell: #fff8f4; /* the light background */
+
+  /* Roles */
+  --cta: var(--coral);
+  --on-cta: var(--ink);
 
   --success: var(--primary);
   --danger: #a8352a;

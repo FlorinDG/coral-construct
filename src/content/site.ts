@@ -46,6 +46,7 @@ export const SWATCHES = [
   { name: "^Linen", hex: "#F3EADA" },
   { name: "^Plum", hex: "#734978" },
   { name: "^Ochre", hex: "#9A8A3A" },
+  { name: "^Coral", hex: "#FF8559" },
 ];
 
 export const PROOF = {
