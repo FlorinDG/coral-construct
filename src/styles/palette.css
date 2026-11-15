@@ -23,6 +23,10 @@
   --terracotta: #b5472b; /* coral as text on light surfaces (≈5:1 on shell) */
   --shell: #fff8f4; /* the light background */
 
+  /* Stone: the quiet neutral pair (logo rivet ring, placeholder-weight details). */
+  --stone: #5f5e5a; /* on light */
+  --stone-light: #b4b2a9; /* on dark */
+
   /* Roles */
   --cta: var(--coral);
   --on-cta: var(--ink);
