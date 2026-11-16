@@ -3,8 +3,9 @@
    it or pressed into it. Light from the top-left.
    ───────────────────────────────────────────────────────────────── */
 [data-variant="neu"] {
-  /* shell-light, with enough tone left for the white highlight to show */
-  --surface: color-mix(in oklab, var(--shell) 62%, var(--paper));
+  /* almost shell (#FEF6F1): the soft shadows carry the raised shapes; a whisper of
+     linen keeps the white highlight from vanishing entirely */
+  --surface: color-mix(in oklab, var(--shell) 88%, var(--paper));
   --hi: color-mix(in oklab, var(--surface) 30%, white);
   --lo: color-mix(in oklab, var(--surface) 78%, var(--ink));
   --text: var(--ink);
@@ -24,7 +25,7 @@
   color: var(--text);
 }
 body:has([data-variant="neu"]) {
-  background: color-mix(in oklab, var(--shell) 62%, var(--paper));
+  background: color-mix(in oklab, var(--shell) 88%, var(--paper));
 }
 
 [data-variant="neu"] .topbar {
